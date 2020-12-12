@@ -4,4 +4,4 @@ Frontend for campus store
 
 ## frameworks used
 
-React and tailwind css
+React and tailwind
