@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: "Overpass", sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+button {
+  outline: none;
+}
+
+button:focus {
+  outline: none;
+}
