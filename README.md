@@ -1,6 +1,6 @@
 # Campus Store
 
-Frontend of e-commercial site for IIIT-Allahabd.
+Frontend of e-commercial site for IIIT-Allahabad.
 
 ## Frameworks used
 - React
