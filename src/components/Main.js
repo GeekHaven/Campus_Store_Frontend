@@ -5,7 +5,7 @@ import ProductContainer from "./ProductContainer";
 const Main = () => {
   return (
     <div className="px-24 pt-24">
-      <Carousel />
+      {/* <Carousel /> */}
       <ProductContainer />
     </div>
   );

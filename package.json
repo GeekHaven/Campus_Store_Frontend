@@ -2,7 +2,6 @@
   "name": "campus-store-frontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/GeekHaven.github.io/Campus_Store_Frontend",
   "dependencies": {
     "@craco/craco": "^6.0.0",
     "@testing-library/jest-dom": "^5.11.6",
@@ -13,8 +12,10 @@
     "postcss": "^7.0.35",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-loading": "^2.0.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "swiper": "^6.4.8",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "web-vitals": "^0.2.4"
   },
