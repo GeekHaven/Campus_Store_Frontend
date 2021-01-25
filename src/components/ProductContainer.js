@@ -24,11 +24,11 @@ const ProductContainer = () => {
     setLoading(false);
   };
   return loading ? (
-    <div className="flex h-96 justify-center items-center ">
+    <div className="flex h-96 justify-center items-center w-full ">
       <ReactLoading type="spin" color="#10b981" />
     </div>
   ) : (
-    <div className="grid gap-10 grid-cols-4 mt-10">
+    <div className="w-full grid gap-2 md:gap-7 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-10">
       {products.map((p, i) => {
         return (
           <Link to="/">

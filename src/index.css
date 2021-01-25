@@ -6,10 +6,6 @@
   font-family: "Overpass", sans-serif;
 }
 
-body {
-  overflow-x: hidden;
-}
-
 button {
   outline: none;
 }
