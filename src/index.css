@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+#root {
+  overflow-x: hidden;
+}
+
 * {
   font-family: "Overpass", sans-serif;
 }

@@ -1,14 +1,25 @@
 import "./App.css";
-import NavBar from "./components/NavBar";
-import Main from "./components/Main";
-import { useState } from "react";
-import Menu from "./components/Menu";
+import NavBar from "./components/navbar";
+import Home from "./pages/home";
+import { useEffect, useState } from "react";
+import Menu from "./components/menu";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import Login from "./pages/auth/login";
+import Register from "./pages/auth/register";
+import ProductPage from "./pages/product";
+import { useWindowWidth } from "@react-hook/window-size";
 
 function App() {
+  const screenWidth = useWindowWidth();
   const [menu, setMenu] = useState(false);
+  const [menuWidth, setMenuWidth] = useState("");
+  useEffect(() => {
+    if (screenWidth > 600) {
+      setMenuWidth("24rem");
+    } else {
+      setMenuWidth("12rem");
+    }
+  }, [screenWidth]);
   const toggleMenu = () => {
     setMenu((prevValue) => !prevValue);
   };
@@ -16,21 +27,25 @@ function App() {
     <Router>
       <div
         style={{
-          marginLeft: menu ? "24rem" : "0rem",
+          marginLeft: menu ? menuWidth : "0rem",
           transitionDuration: "0.6s",
         }}
-        className="w-screen"
+        className="w-screen min-h-screen"
       >
         <div
-          style={{ left: menu ? "0rem" : "-24rem", transitionDuration: "0.6s" }}
-          className="fixed w-96 -left-96 h-screen z-20"
+          style={{
+            left: menu ? "0rem" : "-" + menuWidth,
+            transitionDuration: "0.6s",
+            width: menuWidth,
+          }}
+          className="fixed h-screen z-20"
         >
           <Menu toggle={toggleMenu} />
         </div>
         <NavBar toggle={toggleMenu} />
 
         <Route exact path="/">
-          <Main />
+          <Home />
         </Route>
         <Route exact path="/signin">
           <Login />
@@ -38,6 +53,7 @@ function App() {
         <Route exact path="/signup">
           <Register />
         </Route>
+        <Route exact path="/products/:id" component={ProductPage} />
       </div>
     </Router>
   );

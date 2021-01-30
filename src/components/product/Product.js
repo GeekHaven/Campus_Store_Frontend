@@ -1,7 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Product = (props) => {
-  const { title, price, image } = props.data;
+  const { id, title, price, image } = props.data;
   return (
     <div className="transform transition duration-500 hover:scale-110 flex flex-col items-center overflow-x-hidden">
       <img src={image} alt={title} className="w-5/6 h-auto"></img>

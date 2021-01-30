@@ -1,8 +1,8 @@
 import React from "react";
-import Carousel from "./Carousel";
-import ProductContainer from "./ProductContainer";
+import Carousel from "../../components/home/Carousel";
+import ProductContainer from "../../components/product/ProductContainer";
 
-const Main = () => {
+const Home = () => {
   return (
     <div className="px-5 md:px-12 lg:px-24 pt-10 md:pt-16 lg:pt-24">
       {/* <Carousel /> */}
@@ -11,4 +11,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Home;

@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   return (
-    <div className="h-screen flex justify-center items-center">
-      <div class="bg-white w-1/3 rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
+    <div className="h-screen flex justify-center items-center px-3">
+      <div class="bg-white w-full md:w-1/2 lg:w-1/3 rounded px-8 pt-6 pb-8 mb-4 flex flex-col">
         <div class="mb-4">
           <label
             class="block text-grey-darker text-sm font-bold mb-2"
@@ -17,6 +17,20 @@ const Login = () => {
             id="username"
             type="text"
             placeholder="Username"
+          />
+        </div>
+        <div class="mb-4">
+          <label
+            class="block text-grey-darker text-sm font-bold mb-2"
+            for="email"
+          >
+            Email
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+            id="email"
+            type="email"
+            placeholder="Email"
           />
         </div>
         <div class="mb-6">
@@ -35,17 +49,17 @@ const Login = () => {
         </div>
         <div class="flex items-center justify-between">
           <button
-            class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded"
+            class="bg-green-500 flex-none hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded"
             type="button"
           >
-            Sign In
+            Sign up
           </button>
-          <Link to="/signup">
+          <Link to="/signin">
             <button
               class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500"
               href="#"
             >
-              New? Sign up first
+              Already signed up? Sign in here
             </button>
           </Link>
         </div>
@@ -54,4 +68,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
