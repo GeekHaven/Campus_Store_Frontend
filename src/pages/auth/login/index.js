@@ -41,7 +41,7 @@ const Login = () => {
             Sign In
           </button>
           <Link to="/signup">
-            <button class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500">
+            <button class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right">
               New? Sign up first
             </button>
           </Link>

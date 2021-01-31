@@ -56,7 +56,7 @@ const Register = () => {
           </button>
           <Link to="/signin">
             <button
-              class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500"
+              class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right"
               href="#"
             >
               Already signed up? Sign in here

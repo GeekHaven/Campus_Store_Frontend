@@ -8,6 +8,7 @@ import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import ProductPage from "./pages/product";
 import { useWindowWidth } from "@react-hook/window-size";
+import Order from "./pages/order";
 
 function App() {
   const screenWidth = useWindowWidth();
@@ -54,6 +55,7 @@ function App() {
           <Register />
         </Route>
         <Route exact path="/products/:id" component={ProductPage} />
+        <Route exact path="/products/:id/order" component={Order} />
       </div>
     </Router>
   );

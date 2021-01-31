@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Product from "../../components/product/Product";
 import ReactLoading from "react-loading";
+import { Link } from "react-router-dom";
 
 export default function ProductPage({ match }) {
   const productId = match.params.id;
@@ -43,14 +43,17 @@ export default function ProductPage({ match }) {
           <h2 className="text-2xl lg:text-4xl text-center md:text-left text-green-500 font-bold">
             {product.title}
           </h2>
-          <p className="pt-5">{product.description}</p>
+          <p className="pt-2">{product.description}</p>
           <div className="pt-5 flex justify-between lg:flex-col lg:justify-start">
             <span className="text-3xl lg:text-4xl font-bold text-green-500">
               {"$ " + product.price}
             </span>
-            <button class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded lg:mt-4 lg:w-36 lg:text-3xl">
+            <Link
+              to={`/products/${productId}/order`}
+              class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded lg:mt-4 lg:w-36 lg:text-3xl"
+            >
               Buy
-            </button>
+            </Link>
           </div>
         </div>
       </div>
