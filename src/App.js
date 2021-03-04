@@ -11,6 +11,22 @@ import { useWindowWidth } from "@react-hook/window-size";
 import Order from "./pages/order";
 
 function App() {
+  //App States
+  const [auth, setAuth] = useState({
+    token: null,
+    user: null,
+    state: false,
+  });
+
+  const login = (token, user) => {
+    setAuth({
+      token,
+      user,
+      state: true,
+    });
+  };
+
+  //UI states
   const screenWidth = useWindowWidth();
   const [menu, setMenu] = useState(false);
   const [menuWidth, setMenuWidth] = useState("");
@@ -48,12 +64,17 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/signin">
-          <Login />
-        </Route>
-        <Route exact path="/signup">
-          <Register />
-        </Route>
+        {!auth.state && (
+          <>
+            <Route exact login={login} path="/signin">
+              <Login />
+            </Route>
+            <Route exact path="/signup">
+              <Register />
+            </Route>
+          </>
+        )}
+
         <Route exact path="/products/:id" component={ProductPage} />
         <Route exact path="/products/:id/order" component={Order} />
       </div>
