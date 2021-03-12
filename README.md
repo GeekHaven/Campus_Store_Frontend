@@ -12,9 +12,9 @@ This site is live right now and can be viewed at [https://campusstore.netlify.ap
 
 ## Getting started
 
-# `npm install`
+### `npm install`
 
 Installs all required dependencies
 
-# `npm start`
+### `npm start`
 Starts the server at [localhost:3000](http://localhost:3000/)
