@@ -2,7 +2,7 @@
 
 Frontend of e-commercial site for IIIT-Allahabad.
 
-## Live site
+## Live preview
 
 This site is live right now and can be viewed at [https://campusstore.netlify.app/](https://campusstore.netlify.app/)
 
