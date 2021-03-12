@@ -1,19 +1,20 @@
-# Campus Store
+# Campus Store  [![Netlify Status](https://api.netlify.com/api/v1/badges/09e72735-e360-4730-b077-a7813c82f167/deploy-status)](https://app.netlify.com/sites/campusstore/deploys)
 
 Frontend of e-commercial site for IIIT-Allahabad.
+
+## Live site
+
+This site is live right now and can be viewed at [https://campusstore.netlify.app/](https://campusstore.netlify.app/)
 
 ## Frameworks used
 - React
 - Tailwind css
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+# `npm install`
 
-### `npm start`
+Installs all required dependencies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# `npm start`
+Starts the server at [localhost:3000](http://localhost:3000/)
