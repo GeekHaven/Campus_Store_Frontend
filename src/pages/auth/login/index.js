@@ -17,15 +17,17 @@ const Login = (props) => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    // setError(null);
-    // // setLoading(true);
-    // axios
-    //   .post(`${baseApiUrl}/auth/login`, user)
-    //   .then((res) => {
-    //     let { token, tokenUser } = res.data;
-    //     props.login(token, tokenUser);
-    //   })
-    //   .catch((err) => setError(err.response.data.error));
+    setError(null);
+    // setLoading(true);
+    axios
+      .post(`${baseApiUrl}/auth/login`, user)
+      .then((res) => {
+        let userData = res.data;
+        props.login(userData.token, userData.tokenUser);
+        window.localStorage.setItem("token", userData.token);
+        history.push("/");
+      })
+      .catch((err) => setError(err.response.data.error));
   };
   return (
     <div className="h-screen flex justify-center items-center px-3">
