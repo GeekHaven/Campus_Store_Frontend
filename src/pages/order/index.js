@@ -43,7 +43,7 @@ const Order = ({ match }) => {
               </div>
             </div>
           ) : (
-            <div className="w-full flex md:flex-col md:w-1/3 lg:w-1/2">
+            <div className="w-full flex md:flex-col md:w-1/3 lg:w-1/2 md:items-center md:mt-16">
               <div className="flex-none w-28">
                 <img
                   className="w-full"
@@ -52,16 +52,16 @@ const Order = ({ match }) => {
                 />
               </div>
 
-              <div className="flex-grow pl-4 md:pl-0 md:mt-4">
+              <div className="flex-grow pl-4 md:pl-0 md:mt-4 md:text-center">
                 <span className="font-bold text-xl">{product.title}</span>
-                <div class="w-36 flex justify-between items-center mt-4">
+                <div class="w-36 flex justify-between items-center mt-4 md:justify-center md:w-full">
                   <button
                     onClick={() => {
                       if (quantity > 1) {
                         setQuantity((prevValue) => prevValue - 1);
                       }
                     }}
-                    className="text-gray-400 font-bold text-3xl w-10 border flex justify-center items-center"
+                    className="text-gray-400 font-bold text-3xl w-10 border flex justify-center items-center md:mr-10"
                   >
                     <span>-</span>
                   </button>{" "}
@@ -70,7 +70,7 @@ const Order = ({ match }) => {
                     onClick={() => {
                       setQuantity((prevValue) => prevValue + 1);
                     }}
-                    className="text-gray-400 font-bold text-3xl w-10 border flex justify-center items-center"
+                    className="text-gray-400 font-bold text-3xl w-10 border flex justify-center items-center md:ml-10"
                   >
                     <span>+</span>
                   </button>
