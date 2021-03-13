@@ -15,9 +15,17 @@ const NavBar = (props) => {
           CAMPUS<span className="text-green-500">STORE</span>
         </div>
       </Link>
-      <Link className="w-36 text-right" to="/signin">
-        <span className=" duration-500 hover:text-green-500">LOGIN</span>
-      </Link>
+      {props.auth.state ? (
+        <a className="w-36 text-right">
+          <span className=" duration-500 hover:text-green-500">
+            {props.auth.user.username}
+          </span>
+        </a>
+      ) : (
+        <Link className="w-36 text-right" to="/signin">
+          <span className=" duration-500 hover:text-green-500">LOGIN</span>
+        </Link>
+      )}
     </nav>
   );
 };

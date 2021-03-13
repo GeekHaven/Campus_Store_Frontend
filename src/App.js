@@ -9,9 +9,17 @@ import Register from "./pages/auth/register";
 import ProductPage from "./pages/product";
 import { useWindowWidth } from "@react-hook/window-size";
 import Order from "./pages/order";
+import jwtDecode from "jwt-decode";
 
 function App() {
-  //App States
+  //checking for token and if there is, loggin in
+  useEffect(() => {
+    if (localStorage.token) {
+      login(localStorage.token, jwtDecode(localStorage.token));
+    }
+  }, []);
+
+  //auth state
   const [auth, setAuth] = useState({
     token: null,
     user: null,
@@ -26,6 +34,15 @@ function App() {
     });
   };
 
+  const logout = () => {
+    setAuth({
+      token: null,
+      user: null,
+      state: false,
+    });
+    window.localStorage.clear();
+  };
+
   //UI states
   const screenWidth = useWindowWidth();
   const [menu, setMenu] = useState(false);
@@ -37,9 +54,11 @@ function App() {
       setMenuWidth("12rem");
     }
   }, [screenWidth]);
+
   const toggleMenu = () => {
     setMenu((prevValue) => !prevValue);
   };
+
   return (
     <Router>
       <div
@@ -57,17 +76,17 @@ function App() {
           }}
           className="fixed h-screen z-20"
         >
-          <Menu toggle={toggleMenu} />
+          <Menu auth={auth} logout={logout} toggle={toggleMenu} />
         </div>
-        <NavBar toggle={toggleMenu} />
+        <NavBar auth={auth} toggle={toggleMenu} />
 
         <Route exact path="/">
           <Home />
         </Route>
         {!auth.state && (
           <>
-            <Route exact login={login} path="/signin">
-              <Login />
+            <Route exact path="/signin">
+              <Login login={login} />
             </Route>
             <Route exact path="/signup">
               <Register />

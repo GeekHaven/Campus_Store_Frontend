@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const Menu = (props) => {
+  const history = useHistory();
   const handleClick = () => {
     props.toggle();
   };
@@ -22,16 +23,32 @@ const Menu = (props) => {
           my cart
         </div>
       </Link>
-      <Link to="/signin" onClick={handleClick}>
-        <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
-          sign in
-        </div>
-      </Link>
-      <Link to="/signup" onClick={handleClick}>
-        <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
-          sign up
-        </div>
-      </Link>
+      {props.auth.state ? (
+        <button
+          onClick={() => {
+            handleClick();
+            props.logout();
+            history.push("/");
+          }}
+        >
+          <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+            log out
+          </div>
+        </button>
+      ) : (
+        <>
+          <Link to="/signin" onClick={handleClick}>
+            <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+              sign in
+            </div>
+          </Link>
+          <Link to="/signup" onClick={handleClick}>
+            <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+              sign up
+            </div>
+          </Link>
+        </>
+      )}
     </div>
   );
 };
