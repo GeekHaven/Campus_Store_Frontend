@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import baseApiUrl from "../../../apiUrl";
 import "animate.css";
-// import ReactLoading from "react-loading";
+import ReactLoading from "react-loading";
 
 const Register = () => {
   const [user, setUser] = useState({ username: "", email: "", password: "" });
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [error, setError] = useState(null);
   const handleChange = (event) => {
@@ -20,11 +20,18 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setError(null);
-    // setLoading(true);
+    setLoading(true);
     axios
       .post(`${baseApiUrl}/auth/signup`, user)
       .then(() => setDone(true))
-      .catch((err) => setError(err.response.data.error));
+      .catch((err) =>
+        setError(
+          err?.response?.data?.error
+            ? err.response.data.error
+            : "Something went wrong. Please try again in a while"
+        )
+      )
+      .finally(() => setLoading(false));
   };
   return (
     <div className="h-screen flex justify-center items-center px-3">
@@ -33,15 +40,11 @@ const Register = () => {
         class="bg-white w-full md:w-1/2 lg:w-1/3 rounded px-8 pt-6 pb-8 mb-4 flex flex-col"
       >
         <div class="mb-4">
-          <label
-            class="block text-grey-darker text-sm font-bold mb-2"
-            for="username"
-          >
+          <label class="block text-grey-darker text-sm font-bold mb-2">
             Username
           </label>
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-            id="username"
             name="username"
             type="text"
             value={user.username}
@@ -51,15 +54,11 @@ const Register = () => {
           />
         </div>
         <div class="mb-4">
-          <label
-            class="block text-grey-darker text-sm font-bold mb-2"
-            for="email"
-          >
+          <label class="block text-grey-darker text-sm font-bold mb-2">
             Email
           </label>
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
-            id="email"
             name="email"
             type="email"
             value={user.email}
@@ -69,15 +68,11 @@ const Register = () => {
           />
         </div>
         <div class="mb-6">
-          <label
-            class="block text-grey-darker text-sm font-bold mb-2"
-            for="password"
-          >
+          <label class="block text-grey-darker text-sm font-bold mb-2">
             Password
           </label>
           <input
             class="shadow appearance-none border border-red rounded w-full py-2 px-3 text-grey-darker mb-3"
-            id="password"
             name="password"
             type="password"
             value={user.password}
@@ -88,17 +83,16 @@ const Register = () => {
           {error && <p className="text-red-500">{error}</p>}
         </div>
 
-        <div class="flex items-center justify-between">
+        <div class="flex flex-row-reverse items-center justify-between">
           <button
             class="bg-green-500 flex-none hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded"
             type="submit"
           >
-            {/* {loading ? (
+            {loading ? (
               <ReactLoading type="spin" color="#fff" height={20} width={20} />
             ) : (
               "Sign up"
-            )} */}
-            Sign up
+            )}
           </button>
           <Link to="/signin">
             <button class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right">
@@ -108,9 +102,12 @@ const Register = () => {
         </div>
       </form>
       {done && (
-        <div className="h-screen w-screen fixed flex justify-center items-center animate__animated animate__fadeIn">
+        <div
+          style={{ zIndex: 9999 }}
+          className="h-screen w-screen fixed flex justify-center items-center animate__animated animate__fadeIn px-10"
+        >
           <div className="p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
-            <h3 className="text-bold text-green-500 text-3xl mb-5">
+            <h3 className="text-bold text-center text-green-500 text-3xl mb-5">
               You are signed up!
             </h3>
             <Link to="/signin">

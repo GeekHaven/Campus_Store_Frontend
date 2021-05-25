@@ -23,6 +23,11 @@ const Menu = (props) => {
           my cart
         </div>
       </Link>
+      <Link to="/product/add" onClick={handleClick}>
+        <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+          add
+        </div>
+      </Link>
       {props.auth.state ? (
         <button
           onClick={() => {

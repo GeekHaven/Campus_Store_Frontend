@@ -10,6 +10,7 @@ import ProductPage from "./pages/product";
 import { useWindowWidth } from "@react-hook/window-size";
 import Order from "./pages/order";
 import jwtDecode from "jwt-decode";
+import AddProduct from "./pages/product/add";
 
 function App() {
   //checking for token and if there is, loggin in
@@ -96,6 +97,7 @@ function App() {
 
         <Route exact path="/products/:id" component={ProductPage} />
         <Route exact path="/products/:id/order" component={Order} />
+        <Route exact path="/product/add" component={AddProduct} />
       </div>
     </Router>
   );
