@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
+import baseApiUrl from "../../apiUrl";
 
 export default function ProductPage({ match }) {
   const productId = match.params.id;
@@ -13,7 +14,7 @@ export default function ProductPage({ match }) {
   const fetchProduct = async () => {
     setLoading(true);
     await axios
-      .get("https://fakestoreapi.com/products/" + productId)
+      .get(`${baseApiUrl}/product/${productId}`)
       .then((res) => {
         let fetchedProduct = res.data;
         setProduct(fetchedProduct);
@@ -36,21 +37,22 @@ export default function ProductPage({ match }) {
           <img
             className="h-60 md:h-auto md:w-1/2"
             src={product.image}
-            alt={product.title}
+            alt={product.name}
           />
         </div>
         <div className="py-5 md:w-1/2 md:min-h-screen flex flex-col justify-center">
           <h2 className="text-2xl lg:text-4xl text-center md:text-left text-green-500 font-bold">
-            {product.title}
+            {product.name}
           </h2>
           <p className="pt-2">{product.description}</p>
           <div className="pt-5 flex justify-between lg:flex-col lg:justify-start">
             <span className="text-3xl lg:text-4xl font-bold text-green-500">
-              {"$ " + product.price}
+              {"₹ " + product.price}
             </span>
+
             <Link
               to={`/products/${productId}/order`}
-              class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded lg:mt-4 lg:w-36 lg:text-3xl"
+              class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded lg:mt-4 lg:w-36 lg:text-3xl text-center"
             >
               Buy
             </Link>

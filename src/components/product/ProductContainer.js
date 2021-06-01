@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Product from "./Product";
 import ReactLoading from "react-loading";
+import baseApiUrl from "../../apiUrl";
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const ProductContainer = () => {
   const fetchProducts = async () => {
     setLoading(true);
     await axios
-      .get("https://fakestoreapi.com/products")
+      .get(`${baseApiUrl}/product/`)
       .then((res) => {
         let fetchedProducts = res.data;
         setProducts(fetchedProducts);
@@ -29,10 +30,10 @@ const ProductContainer = () => {
     </div>
   ) : (
     <div className="w-full grid gap-x-2 gap-y-8 md:gap-7 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-10">
-      {products.map((p, i) => {
+      {products.map((p) => {
         return (
-          <Link to={`/products/${p.id}`}>
-            <Product key={p.id} data={p} />
+          <Link to={`/products/${p._id}`}>
+            <Product key={p._id} data={p} />
           </Link>
         );
       })}

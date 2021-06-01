@@ -20,22 +20,41 @@ const Login = (props) => {
     event.preventDefault();
     setError(null);
     setLoading(true);
-    axios
-      .post(`${baseApiUrl}/auth/login`, user)
-      .then((res) => {
-        let userData = res.data;
-        props.login(userData.token, userData.tokenUser);
-        window.localStorage.setItem("token", userData.token);
-        history.push("/");
-      })
-      .catch((err) =>
-        setError(
-          err?.response?.data?.error
-            ? err.response.data.error
-            : "Something went wrong. Please try again in a while"
+    if (props.forSeller) {
+      axios
+        .post(`${baseApiUrl}/seller/login`, user)
+        .then((res) => {
+          let userData = res.data;
+          props.login(userData.token, userData.tokenUser);
+          window.localStorage.setItem("token", userData.token);
+          history.push("/");
+        })
+        .catch((err) =>
+          setError(
+            err?.response?.data?.error
+              ? err.response.data.error
+              : "Something went wrong. Please try again in a while"
+          )
         )
-      )
-      .finally(() => setLoading(false));
+        .finally(() => setLoading(false));
+    } else {
+      axios
+        .post(`${baseApiUrl}/auth/login`, user)
+        .then((res) => {
+          let userData = res.data;
+          props.login(userData.token, userData.tokenUser);
+          window.localStorage.setItem("token", userData.token);
+          history.push("/");
+        })
+        .catch((err) =>
+          setError(
+            err?.response?.data?.error
+              ? err.response.data.error
+              : "Something went wrong. Please try again in a while"
+          )
+        )
+        .finally(() => setLoading(false));
+    }
   };
   return (
     <div className="h-screen flex justify-center items-center px-3">

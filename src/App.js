@@ -3,12 +3,7 @@ import NavBar from "./components/navbar";
 import Home from "./pages/home";
 import { useEffect, useState } from "react";
 import Menu from "./components/menu";
-import {
-  BrowserRouter as Router,
-  Route,
-  Redirect,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import ProductPage from "./pages/product";
@@ -40,8 +35,6 @@ function App() {
     });
   };
 
-  const history = useHistory();
-
   const logout = () => {
     setAuth({
       token: null,
@@ -49,7 +42,6 @@ function App() {
       state: false,
     });
     window.localStorage.clear();
-    history.push("/signin");
   };
 
   //UI states
@@ -112,9 +104,23 @@ function App() {
           )}
         </Route>
         <Route exact path="/products/:id" component={ProductPage} />
-        <Route exact path="/products/:id/order" component={Order} />
+        <Route
+          exact
+          path="/products/:id/order"
+          render={({ match }) =>
+            auth.state ? (
+              <Order productId={match.params.id} auth={auth} />
+            ) : (
+              <Redirect to="/signin" />
+            )
+          }
+        />
         <Route exact path="/product/add">
-          {auth.user?.type === "seller" ? <AddProduct /> : <Redirect to="/" />}
+          {auth.user?.type === "seller" ? (
+            <AddProduct auth={auth} />
+          ) : (
+            <Redirect to="/" />
+          )}
         </Route>
       </div>
     </Router>

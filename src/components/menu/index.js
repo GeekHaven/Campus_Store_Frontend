@@ -44,7 +44,7 @@ const Menu = (props) => {
           onClick={() => {
             handleClick();
             props.logout();
-            history.push("/");
+            history.push("/signin");
           }}
         >
           <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">

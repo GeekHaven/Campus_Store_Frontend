@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import ConfirmOrder from "./ConfirmOrder";
 import ReactLoading from "react-loading";
+import baseApiUrl from "../../apiUrl";
 
-const Order = ({ match }) => {
-  const productId = match.params.id;
+const Order = ({ productId, auth }) => {
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [done, setDone] = useState(false);
+  const [ordered, setOrdered] = useState(false);
+  const [mobile, setMobile] = useState("");
+  const [room, setRoom] = useState("");
+  const [ordering, setOrdering] = useState(true);
   const back = () => {
     setDone(false);
   };
@@ -21,7 +25,7 @@ const Order = ({ match }) => {
   const fetchProduct = async () => {
     setLoading(true);
     await axios
-      .get("https://fakestoreapi.com/products/" + productId)
+      .get(`${baseApiUrl}/product/${productId}`)
       .then((res) => {
         let fetchedProduct = res.data;
         setProduct(fetchedProduct);
@@ -31,6 +35,31 @@ const Order = ({ match }) => {
       });
     setLoading(false);
     window.scrollTo(0, 0);
+  };
+  const placeOrder = async () => {
+    setOrdered(true);
+    setOrdering(true);
+    await axios
+      .post(
+        `${baseApiUrl}/product/${productId}/order`,
+        {
+          quantity,
+        },
+        {
+          headers: {
+            authorization: `Bearer ${auth.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        setOrdered(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setOrdering(false);
+      });
   };
   return (
     <div>
@@ -48,12 +77,12 @@ const Order = ({ match }) => {
                 <img
                   className="w-full"
                   src={product.image}
-                  alt={product.title}
+                  alt={product.name}
                 />
               </div>
 
               <div className="flex-grow pl-4 md:pl-0 md:mt-4 md:text-center">
-                <span className="font-bold text-xl">{product.title}</span>
+                <span className="font-bold text-xl">{product.name}</span>
                 <div class="w-36 flex justify-between items-center mt-4 md:justify-center md:w-full">
                   <button
                     onClick={() => {
@@ -77,7 +106,7 @@ const Order = ({ match }) => {
                 </div>
                 <div className="mt-4">
                   <span className="font-bold text-green-500 text-xl lg:text-2xl">
-                    {"$ " + quantity * product.price}
+                    {"₹ " + (quantity * product.price).toFixed(2)}
                   </span>
                 </div>
               </div>
@@ -100,7 +129,9 @@ const Order = ({ match }) => {
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                 id="name"
                 type="text"
+                value={auth.user.username}
                 placeholder="Name"
+                disabled
               />
             </div>
             <div class="mb-4">
@@ -114,7 +145,9 @@ const Order = ({ match }) => {
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                 id="email"
                 type="email"
+                value={auth.user.email}
                 placeholder="Email"
+                disabled
               />
             </div>
             <div class="mb-4">
@@ -128,6 +161,10 @@ const Order = ({ match }) => {
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                 id="mobile"
                 type="text"
+                value={mobile}
+                onChange={(ev) => {
+                  setMobile(ev.target.value);
+                }}
                 placeholder="Mobile no"
               />
             </div>
@@ -142,6 +179,10 @@ const Order = ({ match }) => {
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                 id="room"
                 type="text"
+                value={room}
+                onChange={(ev) => {
+                  setRoom(ev.target.value);
+                }}
                 placeholder="Room no."
               />
             </div>
@@ -157,7 +198,16 @@ const Order = ({ match }) => {
           </div>
         </div>
       ) : (
-        <ConfirmOrder product={{ ...product, quantity }} back={back} />
+        <ConfirmOrder
+          product={{ ...product, quantity }}
+          back={back}
+          placeOrder={placeOrder}
+          ordered={ordered}
+          ordering={ordering}
+          user={auth.user}
+          mobile={mobile}
+          room={room}
+        />
       )}
     </div>
   );
