@@ -5,7 +5,7 @@ import baseApiUrl from "../../../apiUrl";
 import "animate.css";
 import ReactLoading from "react-loading";
 
-const Register = () => {
+const Register = ({ forSeller, auth }) => {
   const [user, setUser] = useState({ username: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -21,17 +21,35 @@ const Register = () => {
     event.preventDefault();
     setError(null);
     setLoading(true);
-    axios
-      .post(`${baseApiUrl}/auth/signup`, user)
-      .then(() => setDone(true))
-      .catch((err) =>
-        setError(
-          err?.response?.data?.error
-            ? err.response.data.error
-            : "Something went wrong. Please try again in a while"
+    if (forSeller) {
+      axios
+        .post(`${baseApiUrl}/seller/signup`, user, {
+          headers: {
+            authorization: `Bearer ${auth.token}`,
+          },
+        })
+        .then(() => setDone(true))
+        .catch((err) =>
+          setError(
+            err?.response?.data?.error
+              ? err.response.data.error
+              : "Something went wrong. Please try again in a while"
+          )
         )
-      )
-      .finally(() => setLoading(false));
+        .finally(() => setLoading(false));
+    } else {
+      axios
+        .post(`${baseApiUrl}/auth/signup`, user)
+        .then(() => setDone(true))
+        .catch((err) =>
+          setError(
+            err?.response?.data?.error
+              ? err.response.data.error
+              : "Something went wrong. Please try again in a while"
+          )
+        )
+        .finally(() => setLoading(false));
+    }
   };
   return (
     <div className="h-screen flex justify-center items-center px-3">
@@ -90,15 +108,19 @@ const Register = () => {
           >
             {loading ? (
               <ReactLoading type="spin" color="#fff" height={20} width={20} />
+            ) : forSeller ? (
+              "Add Seller"
             ) : (
               "Sign up"
             )}
           </button>
-          <Link to="/signin">
-            <button class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right">
-              Already signed up? Sign in here
-            </button>
-          </Link>
+          {!forSeller && (
+            <Link to="/signin">
+              <button class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right">
+                Already signed up? Sign in here
+              </button>
+            </Link>
+          )}
         </div>
       </form>
       {done && (
@@ -108,13 +130,21 @@ const Register = () => {
         >
           <div className="p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
             <h3 className="text-bold text-center text-green-500 text-3xl mb-5">
-              You are signed up!
+              {forSeller ? "Seller is added!" : "You are signed up!"}
             </h3>
-            <Link to="/signin">
-              <span class="bg-green-500 flex-none hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded">
-                Go to login
-              </span>
-            </Link>
+            {forSeller ? (
+              <Link to="/">
+                <span class="bg-green-500 flex-none hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded">
+                  Close
+                </span>
+              </Link>
+            ) : (
+              <Link to="/signin">
+                <span class="bg-green-500 flex-none hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded">
+                  Go to login
+                </span>
+              </Link>
+            )}
           </div>
         </div>
       )}

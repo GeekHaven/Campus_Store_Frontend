@@ -82,14 +82,36 @@ const Login = (props) => {
               "Sign In"
             )}
           </button>
-          <Link to="/signup">
-            <button
-              class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right"
-              type="button"
-            >
-              New? Sign up first
-            </button>
-          </Link>
+          {props.forSeller ? (
+            <Link to="/signin">
+              <button
+                class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right"
+                type="button"
+              >
+                Go back to normal login
+              </button>
+            </Link>
+          ) : (
+            <div className="flex flex-col">
+              {" "}
+              <Link to="/signup">
+                <button
+                  class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right"
+                  type="button"
+                >
+                  New? Sign up first
+                </button>
+              </Link>{" "}
+              <Link to="/seller/signin">
+                <button
+                  class="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker duration-500 hover:text-green-500 text-right"
+                  type="button"
+                >
+                  Seller? Go to seller login
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </form>
     </div>

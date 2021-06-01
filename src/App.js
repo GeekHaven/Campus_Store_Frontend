@@ -3,7 +3,12 @@ import NavBar from "./components/navbar";
 import Home from "./pages/home";
 import { useEffect, useState } from "react";
 import Menu from "./components/menu";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Redirect,
+  useHistory,
+} from "react-router-dom";
 import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import ProductPage from "./pages/product";
@@ -35,6 +40,8 @@ function App() {
     });
   };
 
+  const history = useHistory();
+
   const logout = () => {
     setAuth({
       token: null,
@@ -42,6 +49,7 @@ function App() {
       state: false,
     });
     window.localStorage.clear();
+    history.push("/signin");
   };
 
   //UI states
@@ -50,9 +58,9 @@ function App() {
   const [menuWidth, setMenuWidth] = useState("");
   useEffect(() => {
     if (screenWidth > 600) {
-      setMenuWidth("24rem");
+      setMenuWidth("30rem");
     } else {
-      setMenuWidth("12rem");
+      setMenuWidth("16rem");
     }
   }, [screenWidth]);
 
@@ -80,24 +88,34 @@ function App() {
           <Menu auth={auth} logout={logout} toggle={toggleMenu} />
         </div>
         <NavBar auth={auth} toggle={toggleMenu} />
-
         <Route exact path="/">
           <Home />
         </Route>
-        {!auth.state && (
-          <>
-            <Route exact path="/signin">
-              <Login login={login} />
-            </Route>
-            <Route exact path="/signup">
-              <Register />
-            </Route>
-          </>
-        )}
-
+        <Route exact path="/signin">
+          {auth.state ? <Redirect to="/" /> : <Login login={login} />}
+        </Route>
+        <Route exact path="/signup">
+          {auth.state ? <Redirect to="/" /> : <Register />}
+        </Route>
+        <Route exact path="/seller/signin">
+          {auth.state ? (
+            <Redirect to="/" />
+          ) : (
+            <Login login={login} forSeller={true} />
+          )}
+        </Route>{" "}
+        <Route exact path="/seller/add">
+          {auth.user?.isAdmin ? (
+            <Register forSeller={true} auth={auth} />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Route>
         <Route exact path="/products/:id" component={ProductPage} />
         <Route exact path="/products/:id/order" component={Order} />
-        <Route exact path="/product/add" component={AddProduct} />
+        <Route exact path="/product/add">
+          {auth.user?.type === "seller" ? <AddProduct /> : <Redirect to="/" />}
+        </Route>
       </div>
     </Router>
   );

@@ -18,7 +18,9 @@ const NavBar = (props) => {
       {props.auth.state ? (
         <a className="w-36 text-right">
           <span className=" duration-500 hover:text-green-500">
-            {props.auth.user.username}
+            {props.auth.user.username +
+              (props.auth.user.isAdmin ? " (Admin)" : "") +
+              (props.auth.user.type === "seller" ? " (Seller)" : "")}
           </span>
         </a>
       ) : (
