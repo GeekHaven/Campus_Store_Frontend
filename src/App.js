@@ -1,4 +1,3 @@
-import "./App.css";
 import NavBar from "./components/navbar";
 import Home from "./pages/home";
 import { useEffect, useState } from "react";
@@ -103,12 +102,21 @@ function App() {
             <Redirect to="/" />
           )}
         </Route>
-        <Route exact path="/products/:id" component={ProductPage} />
+        <Route
+          exact
+          path="/products/:id"
+          render={({ match }) => (
+            <ProductPage
+              productId={match.params.id}
+              seller={auth?.user?.type === "seller"}
+            />
+          )}
+        />
         <Route
           exact
           path="/products/:id/order"
           render={({ match }) =>
-            auth.state ? (
+            auth.state && auth?.user?.type !== "seller" ? (
               <Order productId={match.params.id} auth={auth} />
             ) : (
               <Redirect to="/signin" />

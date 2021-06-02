@@ -32,8 +32,8 @@ const ProductContainer = () => {
     <div className="w-full grid gap-x-2 gap-y-8 md:gap-7 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-10">
       {products.map((p) => {
         return (
-          <Link to={`/products/${p._id}`}>
-            <Product key={p._id} data={p} />
+          <Link key={p._id} to={`/products/${p._id}`}>
+            <Product data={p} />
           </Link>
         );
       })}

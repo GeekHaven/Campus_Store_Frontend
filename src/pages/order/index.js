@@ -19,9 +19,6 @@ const Order = ({ productId, auth }) => {
   const handleSubmit = () => {
     setDone(true);
   };
-  useEffect(() => {
-    fetchProduct();
-  }, []);
   const fetchProduct = async () => {
     setLoading(true);
     await axios
@@ -36,6 +33,10 @@ const Order = ({ productId, auth }) => {
     setLoading(false);
     window.scrollTo(0, 0);
   };
+  useEffect(() => {
+    fetchProduct();
+  }, []);
+
   const placeOrder = async () => {
     setOrdered(true);
     setOrdering(true);

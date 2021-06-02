@@ -13,16 +13,16 @@ const Menu = (props) => {
           home
         </div>
       </Link>
-      <Link>
+      {/* <Link>
         <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
           categories
         </div>
-      </Link>
-      <Link>
+      </Link> */}
+      {/* <Link>
         <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
           my cart
         </div>
-      </Link>
+      </Link> */}
       {props.auth.user?.type === "seller" && (
         <Link to="/product/add" onClick={handleClick}>
           <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
