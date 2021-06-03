@@ -47,11 +47,11 @@ export default function ConfirmOrder({
         </h2>
         <div className="flex">
           <div className="w-1/3 lg:w-1/2 text-right font-bold pr-2">Name:</div>
-          <div className="w-2/3 lg:w-1/2">{user.username}</div>
+          <div className="w-2/3 lg:w-1/2">{user.details.username}</div>
         </div>
         <div className="flex">
           <div className="w-1/3 lg:w-1/2 text-right font-bold pr-2">Email:</div>
-          <div className="w-2/3 lg:w-1/2">{user.email}</div>
+          <div className="w-2/3 lg:w-1/2">{user.details.email}</div>
         </div>
         <div className="flex">
           <div className="w-1/3 lg:w-1/2 text-right font-bold pr-2">

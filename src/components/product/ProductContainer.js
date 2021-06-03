@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Product from "./Product";
 import ReactLoading from "react-loading";
-import baseApiUrl from "../../apiUrl";
+import baseApiUrl from "../../constants/apiUrl";
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);

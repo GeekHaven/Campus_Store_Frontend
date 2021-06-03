@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import baseApiUrl from "../../../apiUrl";
 import ReactLoading from "react-loading";
+import baseApiUrl from "../../../constants/apiUrl";
 
 const Login = (props) => {
   const history = useHistory();

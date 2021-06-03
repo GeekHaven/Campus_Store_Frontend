@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import baseApiUrl from "../../../apiUrl";
 import "animate.css";
 import ReactLoading from "react-loading";
+import baseApiUrl from "../../../constants/apiUrl";
+import UserContext from "../../../context/UserContext";
 
-const Register = ({ forSeller, auth }) => {
+const Register = ({ forSeller }) => {
+  const userContext = useContext(UserContext);
   const [user, setUser] = useState({ username: "", email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
@@ -25,7 +27,7 @@ const Register = ({ forSeller, auth }) => {
       axios
         .post(`${baseApiUrl}/seller/signup`, user, {
           headers: {
-            authorization: `Bearer ${auth.token}`,
+            authorization: `Bearer ${userContext.token}`,
           },
         })
         .then(() => setDone(true))

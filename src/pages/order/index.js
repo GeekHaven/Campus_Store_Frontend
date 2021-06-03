@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import ConfirmOrder from "./ConfirmOrder";
 import ReactLoading from "react-loading";
-import baseApiUrl from "../../apiUrl";
+import baseApiUrl from "../../constants/apiUrl";
+import UserContext from "../../context/UserContext";
 
-const Order = ({ productId, auth }) => {
+const Order = ({ productId }) => {
+  const user = useContext(UserContext);
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -48,7 +50,7 @@ const Order = ({ productId, auth }) => {
         },
         {
           headers: {
-            authorization: `Bearer ${auth.token}`,
+            authorization: `Bearer ${user.token}`,
           },
         }
       )
@@ -130,7 +132,7 @@ const Order = ({ productId, auth }) => {
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                 id="name"
                 type="text"
-                value={auth.user.username}
+                value={user.details.username}
                 placeholder="Name"
                 disabled
               />
@@ -146,7 +148,7 @@ const Order = ({ productId, auth }) => {
                 class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
                 id="email"
                 type="email"
-                value={auth.user.email}
+                value={user.details.email}
                 placeholder="Email"
                 disabled
               />
@@ -205,7 +207,7 @@ const Order = ({ productId, auth }) => {
           placeOrder={placeOrder}
           ordered={ordered}
           ordering={ordering}
-          user={auth.user}
+          user={user}
           mobile={mobile}
           room={room}
         />

@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 
 const Menu = (props) => {
+  const user = useContext(UserContext);
   const history = useHistory();
   const handleClick = () => {
     props.toggle();
@@ -23,7 +25,7 @@ const Menu = (props) => {
           my cart
         </div>
       </Link> */}
-      {props.auth.user?.type === "seller" && (
+      {user.type === "seller" && (
         <Link to="/product/add" onClick={handleClick}>
           <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
             add product
@@ -31,7 +33,7 @@ const Menu = (props) => {
         </Link>
       )}
 
-      {props.auth.user?.isAdmin && (
+      {user.type === "admin" && (
         <Link to="/seller/add" onClick={handleClick}>
           <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
             add seller
@@ -39,7 +41,7 @@ const Menu = (props) => {
         </Link>
       )}
 
-      {props.auth.state ? (
+      {user.isLogged ? (
         <button
           onClick={() => {
             handleClick();

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import ReactLoading from "react-loading";
 import { Link } from "react-router-dom";
-import baseApiUrl from "../../apiUrl";
+import baseApiUrl from "../../constants/apiUrl";
+import UserContext from "../../context/UserContext";
 
-export default function ProductPage({ productId, seller }) {
+export default function ProductPage({ match }) {
+  const user = useContext(UserContext);
+  const productId = match.params.id;
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -49,7 +52,7 @@ export default function ProductPage({ productId, seller }) {
               {"₹ " + product.price}
             </span>
 
-            {!seller && (
+            {user.type !== "seller" && (
               <Link
                 to={`/products/${productId}/order`}
                 class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded lg:mt-4 lg:w-36 lg:text-3xl text-center"

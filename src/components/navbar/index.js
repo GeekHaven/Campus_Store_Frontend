@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 
 const NavBar = (props) => {
+  const user = useContext(UserContext);
   return (
     <nav className="w-screen fixed z-10 bg-white bg-opacity-90 flex justify-between items-center px-5 md:px-12 lg:px-24 py-5">
       <button
@@ -15,12 +17,12 @@ const NavBar = (props) => {
           CAMPUS<span className="text-green-500">STORE</span>
         </div>
       </Link>
-      {props.auth.state ? (
+      {user.isLogged ? (
         <button className="w-36 text-right">
           <span className=" duration-500 hover:text-green-500">
-            {props.auth.user.username +
-              (props.auth.user.isAdmin ? " (Admin)" : "") +
-              (props.auth.user.type === "seller" ? " (Seller)" : "")}
+            {user.details.username +
+              (user.type === "admin" ? " (Admin)" : "") +
+              (user.type === "seller" ? " (Seller)" : "")}
           </span>
         </button>
       ) : (

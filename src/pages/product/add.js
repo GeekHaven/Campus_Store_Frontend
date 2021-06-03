@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import baseApiUrl from "../../apiUrl";
 import "animate.css";
 import ReactLoading from "react-loading";
+import baseApiUrl from "../../constants/apiUrl";
+import UserContext from "../../context/UserContext";
 
-const AddProduct = ({ auth }) => {
+const AddProduct = () => {
+  const user = useContext(UserContext);
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -31,7 +33,7 @@ const AddProduct = ({ auth }) => {
     axios
       .post(`${baseApiUrl}/product/create`, product, {
         headers: {
-          authorization: `Bearer ${auth.token}`,
+          authorization: `Bearer ${user.token}`,
         },
       })
       .then((res) => {
