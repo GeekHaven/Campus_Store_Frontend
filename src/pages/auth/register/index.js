@@ -127,8 +127,8 @@ const Register = ({ forSeller }) => {
       </form>
       {done && (
         <div
-          style={{ zIndex: 9999 }}
-          className="h-screen w-screen fixed flex justify-center items-center animate__animated animate__fadeIn px-10"
+          style={{ zIndex: 9999, backdropFilter: "blur(15px)" }}
+          className="h-screen w-screen fixed flex justify-center items-center animate__animated animate__fadeIn px-10 bg-opacity-50 bg-gray-500"
         >
           <div className="p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
             <h3 className="text-bold text-center text-green-500 text-3xl mb-5">

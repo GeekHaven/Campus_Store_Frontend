@@ -86,8 +86,8 @@ export default function ConfirmOrder({
 
       {ordered && (
         <div
-          style={{ zIndex: 999 }}
-          className="h-screen w-screen absolute top-0 left-0 flex justify-center items-center animate__animated animate__fadeIn px-10"
+          style={{ zIndex: 999, backdropFilter: "blur(15px)" }}
+          className="h-screen w-screen absolute top-0 left-0 flex justify-center items-center animate__animated animate__fadeIn px-10 bg-gray-500 bg-opacity-50"
         >
           <div className="p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
             {ordering ? (

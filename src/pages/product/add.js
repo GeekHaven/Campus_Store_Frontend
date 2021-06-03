@@ -66,13 +66,14 @@ const AddProduct = () => {
             value={product.name}
             type="text"
             onChange={handleChange}
+            placeholder="Fest T-shirt"
             required
           />
         </div>
         <div class="mb-4 flex">
           <div class="w-1/2 pr-2">
             <label class="block text-grey-darker text-sm font-bold mb-2">
-              Price
+              Price <span className="font-normal">(₹)</span>
             </label>
             <input
               class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -80,6 +81,7 @@ const AddProduct = () => {
               type="number"
               value={product.price}
               onChange={handleChange}
+              placeholder="399"
               required
             />
           </div>
@@ -93,13 +95,17 @@ const AddProduct = () => {
               type="number"
               value={product.stock}
               onChange={handleChange}
+              placeholder="10"
               required
             />
           </div>
         </div>
         <div class="mb-4">
           <label class="block text-grey-darker text-sm font-bold mb-2">
-            Product image link
+            Product image link{" "}
+            <span className="font-normal">
+              (ideally a png or with white background)
+            </span>
           </label>
           <input
             class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
@@ -107,6 +113,7 @@ const AddProduct = () => {
             type="text"
             value={product.image}
             onChange={handleChange}
+            placeholder="https://storeimages/t-shirt.png"
             required
           />
         </div>
@@ -115,10 +122,11 @@ const AddProduct = () => {
             Product description
           </label>
           <textarea
-            class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker"
+            class="shadow appearance-none border rounded w-full h-24 py-2 px-3 text-grey-darker"
             name="description"
             value={product.description}
             onChange={handleChange}
+            placeholder="The official festival T-shirt!"
             required
           />
           {error && <p className="text-red-500">{error}</p>}
@@ -139,8 +147,8 @@ const AddProduct = () => {
       </form>
       {done && (
         <div
-          style={{ zIndex: 9999 }}
-          className="h-screen w-screen bg-gray-300 bg-opacity-50 fixed flex justify-center items-center animate__animated animate__fadeIn px-10"
+          style={{ zIndex: 9999, backdropFilter: "blur(15px)" }}
+          className="h-screen w-screen fixed flex justify-center items-center animate__animated animate__fadeIn px-10 bg-opacity-50 bg-gray-500"
         >
           <div className="p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
             <h3 className="text-bold text-center text-green-500 text-3xl mb-5">

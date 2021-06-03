@@ -100,7 +100,8 @@ const Order = ({ productId }) => {
                   <span>{quantity}</span>{" "}
                   <button
                     onClick={() => {
-                      setQuantity((prevValue) => prevValue + 1);
+                      if (quantity < product.stock)
+                        setQuantity((prevValue) => prevValue + 1);
                     }}
                     className="text-gray-400 font-bold text-3xl w-10 border flex justify-center items-center md:ml-10"
                   >
