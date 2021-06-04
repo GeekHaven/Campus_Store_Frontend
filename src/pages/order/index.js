@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import ConfirmOrder from "./ConfirmOrder";
 import ReactLoading from "react-loading";
 import baseApiUrl from "../../constants/apiUrl";
 import UserContext from "../../context/UserContext";
+import ConfirmOrder from "../../components/order/ConfirmOrder";
 
 const Order = ({ productId }) => {
   const user = useContext(UserContext);

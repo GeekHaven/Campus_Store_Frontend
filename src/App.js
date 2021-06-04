@@ -9,6 +9,8 @@ import jwtDecode from "jwt-decode";
 import AddProduct from "./pages/product/add";
 import UserContext from "./context/UserContext";
 import Layout from "./layouts";
+import OrderList from "./pages/order/OrderList";
+import OrderDetails from "./pages/order/OrderDetails";
 
 function App() {
   const [user, setUser] = useState({
@@ -85,6 +87,24 @@ function App() {
         <Route exact path="/product/add">
           {user.type === "seller" ? <AddProduct /> : <Redirect to="/" />}
         </Route>
+        <Route exact path="/orders">
+          {user.isLogged && user.type !== "seller" ? (
+            <OrderList />
+          ) : (
+            <Redirect to="/" />
+          )}
+        </Route>
+        <Route
+          exact
+          path="/orders/:id"
+          render={({ match }) =>
+            user.isLogged && user.type !== "seller" ? (
+              <OrderDetails orderId={match.params.id} />
+            ) : (
+              <Redirect to="/" />
+            )
+          }
+        />
       </Layout>
     </UserContext.Provider>
   );
