@@ -1,30 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import Product from "./Product";
+import Product from "../product/Product";
 import ReactLoading from "react-loading";
-import baseApiUrl from "../../constants/apiUrl";
 import { ReactComponent as EmptyImage } from "../../images/empty.svg";
+import { fetchProducts } from "../../api/products";
 
 const ProductContainer = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetchProducts();
+    fetchProducts(setLoading, setProducts);
   }, []);
-  const fetchProducts = async () => {
-    setLoading(true);
-    await axios
-      .get(`${baseApiUrl}/product/`)
-      .then((res) => {
-        let fetchedProducts = res.data;
-        setProducts(fetchedProducts);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    setLoading(false);
-  };
+
   return loading ? (
     <div className="flex h-96 justify-center items-center w-full ">
       <ReactLoading type="spin" color="#10b981" />
