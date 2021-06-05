@@ -15,16 +15,16 @@ const Menu = (props) => {
           home
         </div>
       </Link>
-      <Link to="/orders" onClick={handleClick}>
-        <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
-          my orders
-        </div>
-      </Link>
-      {/* <Link>
-        <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
-          my cart
-        </div>
-      </Link> */}
+      {user.isLogged && user.type !== "seller" ? (
+        <Link to="/orders" onClick={handleClick}>
+          <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+            my orders
+          </div>
+        </Link>
+      ) : (
+        ""
+      )}
+
       {user.type === "seller" && (
         <Link to="/product/add" onClick={handleClick}>
           <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">

@@ -26,10 +26,22 @@ export default function OrderListComponent({ order }) {
         </span>
         <div className="md:w-1/4">
           <p className="font-bold text mt-3 md:mt-0 text-gray-700">
-            Processing
+            {order.delivered
+              ? "Delivered"
+              : order.outForDelivery
+              ? "Out for delivery"
+              : order.confirmed
+              ? "Order Confirmed"
+              : "Processing"}
           </p>
           <p className="text-gray-400 text-sm">
-            Your order is currently being processed
+            {order.delivered
+              ? "Your order is delivered to you."
+              : order.outForDelivery
+              ? "Your order is dispatched and is out for delivery."
+              : order.confirmed
+              ? "Your order is confirmed. It will be delivered to you soon."
+              : "Your order is currently being processed."}
           </p>
         </div>
       </div>

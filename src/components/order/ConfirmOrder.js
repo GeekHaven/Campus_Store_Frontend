@@ -86,10 +86,10 @@ export default function ConfirmOrder({
 
       {ordered && (
         <div
-          style={{ zIndex: 999, backdropFilter: "blur(15px)" }}
+          style={{ zIndex: 999 }}
           className="h-screen w-screen absolute top-0 left-0 flex justify-center items-center animate__animated animate__fadeIn px-10 bg-gray-500 bg-opacity-50"
         >
-          <div className="p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
+          <div className="animate__animated animate__zoomIn animate__faster p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
             {ordering ? (
               <h3 className="text-bold text-center text-green-500 text-3xl mb-5">
                 Placing your order...

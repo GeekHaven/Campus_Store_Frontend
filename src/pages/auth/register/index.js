@@ -109,7 +109,7 @@ const Register = ({ forSeller }) => {
             type="submit"
           >
             {loading ? (
-              <ReactLoading type="spin" color="#fff" height={20} width={20} />
+              <ReactLoading type="spin" color="#fff" height={25} width={25} />
             ) : forSeller ? (
               "Add Seller"
             ) : (
@@ -127,10 +127,10 @@ const Register = ({ forSeller }) => {
       </form>
       {done && (
         <div
-          style={{ zIndex: 9999, backdropFilter: "blur(15px)" }}
+          style={{ zIndex: 9999 }}
           className="h-screen w-screen fixed flex justify-center items-center animate__animated animate__fadeIn px-10 bg-opacity-50 bg-gray-500"
         >
-          <div className="p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
+          <div className="animate__animated animate__zoomIn animate__faster p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
             <h3 className="text-bold text-center text-green-500 text-3xl mb-5">
               {forSeller ? "Seller is added!" : "You are signed up!"}
             </h3>

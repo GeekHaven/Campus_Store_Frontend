@@ -65,9 +65,11 @@ const Left = () => {
 };
 
 const ActiveLine = () => {
-  return <div className="w-36 mt-9 h-3 rounded-full bg-green-500"></div>;
+  return (
+    <div className="md:w-36 w-16 mt-9 h-3 rounded-full bg-green-500"></div>
+  );
 };
 
 const Line = () => {
-  return <div className="w-36 mt-9 h-3 rounded-full bg-gray-400"></div>;
+  return <div className="md:w-36 w-16 mt-9 h-3 rounded-full bg-gray-400"></div>;
 };
