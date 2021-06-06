@@ -88,17 +88,13 @@ function App() {
           {user.type === "seller" ? <AddProduct /> : <Redirect to="/" />}
         </Route>
         <Route exact path="/orders">
-          {user.isLogged && user.type !== "seller" ? (
-            <OrderList />
-          ) : (
-            <Redirect to="/" />
-          )}
+          <OrderList />
         </Route>
         <Route
           exact
           path="/orders/:id"
           render={({ match }) =>
-            user.isLogged && user.type !== "seller" ? (
+            user.isLogged ? (
               <OrderDetails orderId={match.params.id} />
             ) : (
               <Redirect to="/" />

@@ -10,7 +10,7 @@ export default function OrderDetails({ orderId }) {
   const user = useContext(UserContext);
   const [order, setOrder] = useState({});
   const [loading, setLoading] = useState(true);
-  const fetchOrder = () => {
+  const fetchUserOrder = () => {
     setLoading(true);
     axios
       .get(`${baseApiUrl}/orders/${orderId}`, {
@@ -29,8 +29,30 @@ export default function OrderDetails({ orderId }) {
         setLoading(false);
       });
   };
+
+  const fetchSellerOrder = () => {
+    setLoading(true);
+    axios
+      .get(`${baseApiUrl}/seller/orders/${orderId}`, {
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((res) => {
+        let fetchedOrder = res.data;
+        setOrder(fetchedOrder);
+        console.log(order);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
-    fetchOrder();
+    user.type === "seller" ? fetchSellerOrder() : fetchUserOrder();
   }, []);
 
   return (
@@ -47,7 +69,11 @@ export default function OrderDetails({ orderId }) {
               <p className="font-bold text-green-500 text-3xl mb-5 text-center md:text-left">
                 {order.product.name}
               </p>
-              <p>Seller: {order.seller.username}</p>
+              {user.type === "seller" ? (
+                <p>Buyer: {order.user.username}</p>
+              ) : (
+                <p>Seller: {order.seller.username}</p>
+              )}
               <p>
                 Order date: {moment(order.createdAt).format("MMMM Do YYYY")}
               </p>

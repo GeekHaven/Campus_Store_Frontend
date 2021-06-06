@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 
 export default function OrderListComponent({ order }) {
+  const user = useContext(UserContext);
+  console.log(user, order);
   return (
     <Link
       to={`/orders/${order._id}`}
@@ -18,7 +21,11 @@ export default function OrderListComponent({ order }) {
               (order.quantity > 1 ? `(${order.quantity})` : "")}
           </p>
           <p className="text-gray-400 hidden md:block">
-            Seller: {order.seller.username}
+            {user.type === "seller" ? (
+              <p>Buyer: {order.user.username}</p>
+            ) : (
+              <p>Seller: {order.seller.username}</p>
+            )}
           </p>
         </div>
         <span className="md:w-1/4 text-xl">
