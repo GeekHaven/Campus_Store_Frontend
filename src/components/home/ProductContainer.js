@@ -1,15 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import Product from "../product/Product";
 import ReactLoading from "react-loading";
 import { ReactComponent as EmptyImage } from "../../images/empty.svg";
 import { fetchProducts } from "../../api/products";
+import UserContext from "../../context/UserContext";
+import axios from "axios";
+import baseApiUrl from "../../constants/apiUrl";
 
-const ProductContainer = () => {
+const ProductContainer = ({ forSeller }) => {
+  const user = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const fetchSellerProducts = () => {
+    setLoading(true);
+    axios
+      .get(`${baseApiUrl}/seller/profile`, {
+        headers: {
+          authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((res) => {
+        let fetchedProducts = res.data;
+        console.log(fetchedProducts);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
   useEffect(() => {
-    fetchProducts(setLoading, setProducts);
+    if (forSeller) fetchSellerProducts();
+    else fetchProducts(setLoading, setProducts);
   }, []);
 
   return loading ? (
@@ -30,8 +54,19 @@ const ProductContainer = () => {
     <div className="flex flex-col items-center pt-36 md:pt-20">
       <EmptyImage className="w-72 md:w-96 h-auto text-green-500" />
       <h2 className="text-gray-500 md:text-2xl text-xl mt-5">
-        The store is empty
+        {forSeller
+          ? "You have not created any products yet."
+          : "The store is empty"}
       </h2>
+      {forSeller && (
+        <Link
+          to="/product/add"
+          class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded mt-4"
+          type="submit"
+        >
+          Add product
+        </Link>
+      )}
     </div>
   );
 };

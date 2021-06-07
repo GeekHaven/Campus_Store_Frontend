@@ -101,6 +101,20 @@ function App() {
             )
           }
         />
+        <Route exact path="/seller/products">
+          {user.type === "seller" ? <Home forSeller /> : <Redirect to="/" />}
+        </Route>
+        <Route
+          exact
+          path="/products/:id/edit"
+          render={({ match }) =>
+            user.isLogged && user.type === "seller" ? (
+              <AddProduct productId={match.params.id} edit />
+            ) : (
+              <Redirect to="/signin" />
+            )
+          }
+        />
       </Layout>
     </UserContext.Provider>
   );

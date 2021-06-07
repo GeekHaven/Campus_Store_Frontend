@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "animate.css";
@@ -6,7 +6,7 @@ import ReactLoading from "react-loading";
 import baseApiUrl from "../../constants/apiUrl";
 import UserContext from "../../context/UserContext";
 
-const AddProduct = () => {
+const AddProduct = ({ productId, edit }) => {
   const user = useContext(UserContext);
   const [product, setProduct] = useState({
     name: "",
@@ -30,25 +30,61 @@ const AddProduct = () => {
     event.preventDefault();
     setError(null);
     setLoading(true);
-    axios
-      .post(`${baseApiUrl}/product/create`, product, {
-        headers: {
-          authorization: `Bearer ${user.token}`,
-        },
-      })
-      .then((res) => {
-        let productData = res.data;
-        setSavedProduct(productData);
-        setDone(true);
-      })
-      .catch((err) =>
-        setError(
-          err?.response?.data?.error
-            ? err.response.data.error
-            : "Something went wrong. Please try again in a while"
+    if (edit) {
+      axios
+        .put(`${baseApiUrl}/product/${productId}`, product, {
+          headers: {
+            authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((res) => {
+          let productData = res.data;
+          setSavedProduct(productData);
+          setDone(true);
+        })
+        .catch((err) =>
+          setError(
+            err?.response?.data?.error
+              ? err.response.data.error
+              : "Something went wrong. Please try again in a while"
+          )
         )
-      )
-      .finally(() => setLoading(false));
+        .finally(() => setLoading(false));
+    } else {
+      axios
+        .post(`${baseApiUrl}/product/create`, product, {
+          headers: {
+            authorization: `Bearer ${user.token}`,
+          },
+        })
+        .then((res) => {
+          let productData = res.data;
+          setSavedProduct(productData);
+          setDone(true);
+        })
+        .catch((err) =>
+          setError(
+            err?.response?.data?.error
+              ? err.response.data.error
+              : "Something went wrong. Please try again in a while"
+          )
+        )
+        .finally(() => setLoading(false));
+    }
+  };
+  useEffect(() => {
+    edit && fetchProduct();
+  }, []);
+  const fetchProduct = async () => {
+    await axios
+      .get(`${baseApiUrl}/product/${productId}`)
+      .then((res) => {
+        let fetchedProduct = res.data;
+        setProduct(fetchedProduct);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="h-screen flex justify-center items-center px-3">
@@ -139,6 +175,8 @@ const AddProduct = () => {
           >
             {loading ? (
               <ReactLoading type="spin" color="#fff" height={20} width={20} />
+            ) : edit ? (
+              "Update"
             ) : (
               "Add"
             )}
@@ -152,7 +190,9 @@ const AddProduct = () => {
         >
           <div className="animate__animated animate__zoomIn animate__faster p-10 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center">
             <h3 className="text-bold text-center text-green-500 text-3xl mb-5">
-              Your product was added!
+              {edit
+                ? "Your product was updated successfully!"
+                : "Your product was added!"}
             </h3>
             <Link to={`/products/${savedProduct?._id}`}>
               <span class="bg-green-500 flex-none hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded">

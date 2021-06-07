@@ -24,21 +24,24 @@ const Menu = (props) => {
       ) : (
         ""
       )}
-
       {user.type === "seller" && (
-        <Link to="/product/add" onClick={handleClick}>
-          <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
-            add product
-          </div>
-        </Link>
-      )}
-
-      {user.type === "seller" && (
-        <Link to="/orders" onClick={handleClick}>
-          <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
-            order history
-          </div>
-        </Link>
+        <>
+          <Link to="/seller/products" onClick={handleClick}>
+            <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+              my products
+            </div>
+          </Link>
+          <Link to="/product/add" onClick={handleClick}>
+            <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+              add product
+            </div>
+          </Link>
+          <Link to="/orders" onClick={handleClick}>
+            <div className="w-full text-3xl md:text-6xl text-gray-800 hover:text-green-500 py-3 px-10 duration-500">
+              order history
+            </div>
+          </Link>
+        </>
       )}
 
       {user.type === "admin" && (
