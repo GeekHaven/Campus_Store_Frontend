@@ -15,14 +15,14 @@ const ProductContainer = ({ forSeller }) => {
   const fetchSellerProducts = () => {
     setLoading(true);
     axios
-      .get(`${baseApiUrl}/seller/profile`, {
+      .get(`${baseApiUrl}/seller/products`, {
         headers: {
           authorization: `Bearer ${user.token}`,
         },
       })
       .then((res) => {
         let fetchedProducts = res.data;
-        console.log(fetchedProducts);
+        setProducts(fetchedProducts);
       })
       .catch((err) => {
         console.log(err);

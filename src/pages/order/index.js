@@ -4,6 +4,7 @@ import ReactLoading from "react-loading";
 import baseApiUrl from "../../constants/apiUrl";
 import UserContext from "../../context/UserContext";
 import ConfirmOrder from "../../components/order/ConfirmOrder";
+import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/solid";
 
 const Order = ({ productId }) => {
   const user = useContext(UserContext);
@@ -93,19 +94,19 @@ const Order = ({ productId }) => {
                         setQuantity((prevValue) => prevValue - 1);
                       }
                     }}
-                    className="text-gray-400 font-bold text-3xl w-10 border flex justify-center items-center md:mr-10"
+                    className="text-green-500 md:mr-10 hover:text-green-400 duration-500"
                   >
-                    <span>-</span>
+                    <MinusCircleIcon className="w-12" />
                   </button>{" "}
-                  <span>{quantity}</span>{" "}
+                  <span class="font-bold text-xl">{quantity}</span>{" "}
                   <button
                     onClick={() => {
                       if (quantity < product.stock)
                         setQuantity((prevValue) => prevValue + 1);
                     }}
-                    className="text-gray-400 font-bold text-3xl w-10 border flex justify-center items-center md:ml-10"
+                    className="text-green-500 md:ml-10 hover:text-green-400 duration-500"
                   >
-                    <span>+</span>
+                    <PlusCircleIcon className="w-12" />
                   </button>
                 </div>
                 <div className="mt-4">

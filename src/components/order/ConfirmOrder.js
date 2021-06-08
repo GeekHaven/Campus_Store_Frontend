@@ -101,7 +101,7 @@ export default function ConfirmOrder({
                 </h3>{" "}
                 <Link to="/">
                   <span class="bg-green-500 flex-none hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded">
-                    Back to browsing
+                    Go back to shopping
                   </span>
                 </Link>
               </>

@@ -71,19 +71,33 @@ export default function ProductPage({ match }) {
             {product.name}
           </h2>
           <p className="pt-2">{product.description}</p>
+          <p className="text-gray-400">Seller: {product.seller?.username} </p>
+          <p className="text-gray-400">
+            {product.stock > 3 ? (
+              "In stock"
+            ) : product.stock === 0 ? (
+              <span className="text-red-400">OUT OF STOCK</span>
+            ) : (
+              `Only ${product.stock} left in stock`
+            )}
+          </p>
           <div className="pt-5 flex justify-between lg:flex-col lg:justify-start">
             <span className="text-3xl lg:text-4xl font-bold text-green-500">
               {"₹ " + product.price}
             </span>
 
             {user.type !== "seller" ? (
-              <Link
-                to={`/products/${productId}/order`}
-                class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded lg:mt-4 lg:w-36 lg:text-3xl text-center"
-              >
-                Buy
-              </Link>
-            ) : user.details.id === product.seller ? (
+              product.stock ? (
+                <Link
+                  to={`/products/${productId}/order`}
+                  class="bg-green-500 hover:bg-green-600 duration-500 text-white font-bold py-2 px-4 rounded lg:mt-4 lg:w-36 lg:text-3xl text-center"
+                >
+                  Buy
+                </Link>
+              ) : (
+                ""
+              )
+            ) : user.details.id === product.seller?._id ? (
               <div className="flex mt-5 text-2xl">
                 <Link
                   to={`/products/${productId}/edit`}
